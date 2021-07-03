@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function Queue() {
+        this.dataStore = []
+        this.pos = 0
+    }
+    Queue.prototype = {
+        length: function() {
+            return this.dataStore.length
+        },
+        empty: function() {
+            return this.dataStore.length > 0 ? false : true
+        },
+        front: function() {
+            return this.dataStore[0]
+        },
+        back: function() {
+            return this.dataStore[this.pos -1]
+        },
+        enqueue: function(element) {
+            this.dataStore.push(element)
+            this.pos ++ 
+        },
+        dequeue: function() {
+            this.dataStore.shift()
+            -- this.pos
+        },
+        toString: function() {
+            return this.dataStore
+        }
+    }
+    let eg = new Queue()
+    eg.enqueue('PUSH')
+    eg.enqueue('POP')
+    eg.enqueue('SHIFT')
+    eg.enqueue('UNSHIFT')
+
+    let dancer = [
+        {name:'Ari', sex:'f'},
+        {name:'John', sex:'m'},
+        {name:'Pt', sex:'m'},
+        {name:'Shelly', sex:'f'},
+        {name:'Mickel', sex:'m'},
+        {name:'Naah', sex:'f'},
+        {name:'Judy', sex:'m'},
+        {name:'Elven', sex:'f'},
+        {name:'Watii', sex:'m'},
+        {name:'Queen', sex:'f'},
+        {name:'Mitty', sex:'f'},
+        {name:'Bruce', sex:'m'},
+        {name:'Frank', sex:'f'},
+        {name:'Rose', sex:'f'},
+        {name:'Anderson', sex:'f'},
+        {name:'Williams', sex:'m'},
+        {name:'Otiz', sex:'m'},
+        {name:'Martin', sex:'m'},
+        {name:'Ruff', sex:'f'},
+        {name:'Adeny', sex:'f'},
+        ]
+    let fQueue = new Queue()
+    let mQueue = new Queue()
+    dancer.forEach(item => {
+        if(item.sex == 'f') {
+            fQueue.enqueue(item)
+        } else {
+            mQueue.enqueue(item)
+        }
+    })
+    do {
+        if(!fQueue.empty() && !mQueue.empty()) {
+            
+            console.log(`Dancer: gentleMan is ${mQueue.front().name} and lady is ${fQueue.front().name}`)
+            mQueue.dequeue()
+            fQueue.dequeue()
+        }
+    } while (!fQueue.empty() && !mQueue.empty())
+    if(fQueue.length > 0 ) {
+        console.log(`${fQueue.length()} famales watting`)
+    }
+    if(mQueue.length > 0) {
+        console.log(`${mQueue.length()} males watting`)
+    }
+
+
+    /*
+    * 基数排序
+    */
+    let queues = []
+    for (let i = 0; i < 10; i++) {
+        queues[i] = new Queue()
+    }
+    let arr = [45, 39, 71, 15, 42, 96, 31, 61, 62, 27, 24, 99, 01]
+    function distribute(arr, queues, digit) {
+        for(let i=0; i< arr.length; i++) {
+            if(digit == 1) {
+                queues[arr[i]%10].enqueue(arr[i])
+            } else {
+                queues[Math.floor(arr[i]/10)].enqueue(arr[i])
+            }
+        }
+    }
+    function collect(queue) {
+        let nums = []
+        for(let i = 0; i< queue.length; i++) {
+            let item = queue[i] 
+            while(!item.empty()) {
+                nums.push(item.front())
+                item.dequeue()
+            }
+        }
+        return nums
+    }
+    distribute(arr, queues, 1)
+    distribute(collect(queues), queues, 10)
+    console.log(collect(queues))
+
+    /**
+     * 优先队列
+    */
+    Queue.prototype.priorityDequeue = function(element) {
+        this.dataStore.splice(this.dataStore.indexOf(element), 1)
+        --this.pos
+    }
+    
+</script>

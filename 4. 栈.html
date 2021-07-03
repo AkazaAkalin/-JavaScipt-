@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function Stack() {
+        this.dataStore = []
+        this.pos = 0
+    }
+    Stack.prototype = {
+        push: function (ele) {
+            this.dataStore.push(ele)
+            this.pos ++
+            return this
+        },
+        pop: function () {
+            this.dataStore.pop()
+            -- this.pos
+            return this
+        },
+        peek: function () {
+            return this.dataStore[this.pos-1]
+        },
+        length: function() {
+            return this.pos
+        },
+        clear: function() {
+            this.dataStore = []
+        }
+    }
+
+    let eg = new Stack()  
+    eg.push('python').push('1').pop().peek()
+
+    let str1 = '{{([])}}'
+    let str2 = '}[]}'
+    let str3 = '{(])'
+    let str4 = '{())}'
+    function main(str) {
+        let stack = new Stack()
+        for(let i = 0; i< str.split('').length; i++) {
+            let item = str.split('')[i]
+            // console.log(stack.dataStore, item )
+            if(item == '{' || item == '[' || item == '(') {
+                stack.push(item)
+            } else if(stack.peek() == '{' && item == '}') {
+                stack.pop()
+            }
+            else if(stack.peek() == '[' && item == ']') {
+                stack.pop()
+            }
+            else if(stack.peek() == '(' && item == ')') {
+                stack.pop()
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+</script>

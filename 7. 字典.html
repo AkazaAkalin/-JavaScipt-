@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function Dictionary() {
+        this.dataStore = []
+    }
+    Dictionary.prototype = {
+        add: function (key, value) {
+            this.dataStore[key] = value
+        },
+        find: function (key) {
+            return this.dataStore[key] || false
+        },
+        remove: function (key) {
+            delete this.dataStore[key]
+        },
+        show: function () {
+            return this.dataStore
+        },
+        length: function () {
+            return Object.keys(this.dataStore).length
+            // 之所以不直接返回 this.dataStore.length 是因为当数组的key是字符串时不会计算长度
+            /*
+            var pbook = []
+            pbook['David'] = 2
+            pbook['Jennifer'] =1
+            此时的pbook.length = 0
+            */
+        },
+        clear: function() {
+            for(var k of Object.keys(this.dataStore)) {
+                console.log(k)
+                delete this.dataStore[k]
+            }
+        },
+        sort: function() {
+            var sortStore = []
+            Object.keys(this.dataStore).sort().forEach(item => {
+                sortStore[item] = this.dataStore[item]
+            })
+            return sortStore
+        }
+    }
+
+    var eg = new Dictionary()
+    eg.add('name', 'guohua')
+    eg.add('age', 10)
+
+    /* 显示一段文字中 单词重复的次数  
+    * 'the brown fox jumped over the blue fox' 
+    * ['the':2, 'brown':1, 'fox':2, 'jumped': 1, 'over': 1, 'blue': 1]
+    */
+    var words = new Dictionary()
+    var text = 'the brown fox jumped over the blue fox' 
+    text.split(' ').forEach(item => {
+        if(words.find(item)) {
+            words.add(item,  words.find(item) + 1)
+        } else {
+            words.add(item, 1)
+        }
+    })
+</script>

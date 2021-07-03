@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function account(amount) {
+        this.balance = amount
+        this.deposit = deposit
+        this.toString = toString
+        this.withdraw = withdraw
+    }
+
+    function deposit(deposit) {
+        this.balance += deposit
+    }
+
+    function toString() {
+        return `balance: ${this.balance}`
+    }
+
+    function withdraw(number) {
+        if (this.balance > number) {
+            this.balance -= number
+        } else {
+            return `余额不足`
+        }
+    }
+
+    let myaccount = new account(1000)
+    // myaccount.deposit(500)
+    // myaccount.toString()
+    // myaccount.withdraw(800)
+    // myaccount.toString()
+    // myaccount.withdraw(1000)
+    // myaccount.toString()
+
+    // function grades(arr) {
+    //     this.grades = arr
+    //     this.add = addgrades
+    //     this.getAverage = getAverage
+    // }
+    // function addgrades(grades) {
+    //     this.grades.push(grades)
+    // }
+    // function getAverage() {
+    //     var total = 0
+    //     this.grades.forEach(element => {
+    //         total += element
+    //     });
+    //     return total / this.grades.length
+    // }
+    // let eg = new grades([10,20])
+    // eg.add(20)
+
+    // 'hello'.split('').reverse().join('')
+
+    function List() {
+        this.pos = 0
+        this.dataStore = []
+    }
+    List.prototype = {
+        length: function() {
+            return this.dataStore.length;
+        },
+        clear: function() {
+            this.dataStore = []
+        },
+        toString: function() {
+            return this.dataStore
+        },
+        getElement: function() {
+            return this.dataStore[this.pos] 
+        },
+        find: function(element) {
+            for (let i = 0; i < this.dataStore.length; i++) {
+                if(element == this.dataStore[i]) {
+                    return i
+                }
+                return -1
+            }
+        },
+        insert: function(element, target) {
+            let targetIndex = this.dataStore.indexOf(target)
+            if(targetIndex > -1) {
+                this.dataStore.splice(targetIndex, 0, element)
+            } else {
+                return false
+            }
+        },
+        append: function(element) {
+            this.dataStore.push(element)
+        },
+        remove: function(element) {
+            let index = this.dataStore.indexOf(element)
+            if(index > -1) {
+                this.dataStore.splice(index,1)
+            } else {
+                return false
+            }
+        },
+        front: function() {
+            this.pos = 0
+        },
+        end: function() {
+            this.pos = this.dataStore.length -1
+        },
+        next: function() {
+            if(this.pos < this.dataStore.length -1) {
+                this.pos ++
+            }
+        },
+        prev: function() {
+            --this.pos
+        },
+        hasNext: function() {
+
+        },
+        hasPrev: function() {},
+        moveTo: function(position) {
+            this.pos = position
+        },
+        contain: function(element) {
+            for (let index = 0; index < this.dataStore.length; index++) {
+                var item = this.dataStore[index];
+                if(item == element) {
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    let names = new List()
+    names.append('Sacit')
+    names.append('Leblonc')
+    names.append('Sett')    
+</script>

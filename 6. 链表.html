@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /**
+     * 链表
+    */
+    // function Node(element) {
+    //     this.element = element
+    //     this.next = null
+    // }
+    // function LList() {
+    //     this.head = new Node('head')
+    // }
+    // LList.prototype = {
+    //     find: function(item) {
+    //         var currNode = this.head
+    //         while(currNode.element != item) {
+    //             currNode = currNode.next
+    //         }
+    //         return currNode
+    //     },
+    //     findPrev: function(item) {
+    //         var current = this.head
+    //         while(current.next != null && current.next.element != item) {
+    //             current = current.next
+    //         }
+    //         return current
+    //     },
+    //     insert: function(newElement, item) {
+    //         var newNode = new Node(newElement)
+    //         var current = this.find(item)
+    //         newNode.next = current.next
+    //         current.next = newNode
+    //     },
+    //     remove: function(item) {
+    //        var prevNode = this.findPrev(item)
+    //        var currentNode = this.find(item)
+    //        prevNode.next = currentNode.next
+    //     },
+    //     display: function() {
+    //         var arr = []
+    //         var current = this.head
+    //         while(current.next != null) {
+    //             arr.push(current.element)
+    //             current = current.next
+    //         }
+    //         return arr
+    //     }
+    // }
+    // var cities = new LList
+    // cities.insert('Conway', 'head')
+    // cities.insert('Russellvitlle', 'Conway')
+    // cities.insert('Alma', 'Russellvitlle')
+    // cities.display()
+    // cities.remove("Russellvitlle")
+
+    /* 
+    * 双向链表
+    */
+    // function Node(element) {
+    //     this.element = element
+    //     this.prev = null
+    //     this.next = null
+    // }
+    // function DLList() {
+    //     this.head = new Node('head')
+    // }
+    // DLList.prototype = {
+    //     find: function (item) {
+    //         var current = this.head
+    //         while (current.element != item) {
+    //             current = current.next
+    //         }
+    //         return current
+    //     },
+    //     findLast: function () {
+    //         var current = this.head
+    //         while (current.next != null) {
+    //             current = current.next
+    //         }
+    //         return current
+    //     },
+    //     insert: function (newElement, item) {
+    //         var newNode = new Node(newElement)
+    //         var current = this.find(item)
+    //         newNode.next = current.next
+    //         newNode.prev = current
+    //         current.next = newNode
+    //     },
+    //     remove: function (item) {
+    //         var prevNode = this.find(this.find(item).prev.element)
+    //         var nextNode = this.find(this.find(item).next.element)
+    //         var target = this.find(item)
+    //         prevNode.next = target.next
+    //         nextNode.prev = target.prev
+    //         target.prev = null
+    //         target.next = null
+    //     },
+    //     display: function () {
+    //         var arr = []
+    //         var current = this.head
+    //         while (current.next != null) {
+    //             arr.push(current.element)
+    //             current = current.next
+    //         }
+    //         arr.push(current.element)
+    //         return arr
+    //     },
+    //     displayReverse: function () {
+    //         var arr = []
+    //         var lastNode = this.findLast()
+    //         while (lastNode.prev != null) {
+    //             arr.push(lastNode.element)
+    //             lastNode = lastNode.prev
+    //         }
+    //         arr.push(current.element)
+    //         return arr
+    //     },
+    //     advance: function (element, n) {
+    //         var currentNode = this.find(element)
+    //         var i = 0
+    //         var targetNode = this.find(element)
+    //         while (i < n) {
+    //             targetNode = targetNode.prev
+    //             i++
+    //         }
+    //         console.log(currentNode, targetNode)
+    //         this.remove(currentNode.element)
+    //         this.insert(currentNode.element, targetNode.prev.element)
+    //     }
+    // }
+    // var step = new DLList()
+    // step.insert('create', 'head')
+    // step.insert('test','create')
+    // step.insert('open', 'test')
+    // step.insert('use', 'open')
+    // step.insert('end', 'use')
+    // step.advance('use', 3)
+    // step.display()
+
+    /*
+    * 循环链表 约瑟夫问题
+    */
+    function Node(element) {
+        this.element = element
+        this.next = null
+    }
+    function CyLList() {
+        this.head = new Node('head')
+        this.head.next = this.head
+    }
+    CyLList.prototype = {
+        find: function (item) {
+            var currNode = this.head
+            while (currNode.element != item) {
+                currNode = currNode.next
+            }
+            return currNode
+        },
+        findPrev: function (item) {
+            var current = this.head
+            while (current.next != null && current.next.element != item) {
+                current = current.next
+            }
+            return current
+        },
+        insert: function (newElement, item) {
+            var newNode = new Node(newElement)
+            var current = this.find(item)
+            newNode.next = current.next
+            current.next = newNode
+        },
+        remove: function (item) {
+            var prevNode = this.findPrev(item)
+            var currentNode = this.find(item)
+            prevNode.next = currentNode.next
+        },
+        display: function () {
+            var arr = []
+            var current = this.head
+            while (current.next != null && current.next.element != 'head') {
+                arr.push(current.element)
+                current = current.next
+            }
+            arr.push(current.element)
+            return arr
+        }
+    }
+    // 约瑟夫问题，N个人围成一圈，从头数数，数到M的人去死，然后从头数数
+    function test(n, m) {
+        var cycle = new CyLList()
+        var people = []
+        for (let i = 0; i < n; i++) {
+            people.push(new Node(i))
+            if (i == 0) {
+                cycle.insert(i, 'head')
+            } else {
+                cycle.insert(i, i - 1)
+            }
+        }
+        var index = 0
+        var len = cycle.display().length - 1
+        while (cycle.display().length - 1 > m || cycle.display().length - 1 == m) {
+            index = (index + m - 1) % len
+            console.log(index, people[index].element + '  killed')
+            cycle.remove(people[index].element)
+            // people.splice(index,1)
+            console.log(cycle.display())
+        }
+    }
+
+    // 约瑟夫问题的数组解法
+    function countOff(num, m) {
+        let players = [];
+        for (let i = 1; i <= num; i++) {
+            players.push(i);
+        }
+        let flag = 0
+        while (players.length >= m) {
+            let length = players.length
+            flag = (flag + m - 1) % length
+            console.log(`${players[flag]} is out`, flag)
+            players.splice(flag, 1)  
+            console.log("剩下：" + players);
+        }
+    }
+    countOff(5, 3)
+</script>

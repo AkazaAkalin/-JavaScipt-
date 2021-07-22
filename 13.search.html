@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    function seqSearch(arr, data) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == data) {
+                return true
+                // return i
+            }
+        }
+        return false
+        // return -1
+    }
+
+    function gitMin(arr) {
+        var temp = arr[0]
+        for (var i = 1; i < arr.length; i++) {
+            if (temp < arr[i]) {
+                temp = arr[i]
+            }
+        }
+        return temp
+    }
+
+    function gitMax(arr) {
+        var temp = arr[0]
+        for (var i = 1; i < arr.length; i++) {
+            if (temp > arr[i]) {
+                temp = arr[i]
+            }
+        }
+        return temp
+    }
+    // // 自组织数据
+    // function seqSearch(arr, data) {
+    //     for(var i = 0; i< arr.length; i++) {
+    //         if(arr[i] == data) {
+    //             if(i > 0) {
+    //                 swap(arr, i, i-1)
+    //             }
+    //             return true
+    //         }
+    //     }
+    //     return false
+    // }
+    // function swap(arr, index, index1) {
+    //     var temp = arr[index]
+    //     arr[index] = arr[index1]
+    //     arr[index1] = temp
+    // }
+    // 二分法查找
+    function binSearch(arr, data) {
+        var upperBound = arr.length - 1
+        var lowerBound = 0
+        while (lowerBound <= upperBound) {
+            var mid = Math.floor((upperBound + lowerBound) / 2)
+            if (arr[mid] < data) {
+                lowerBound = mid + 1
+            } else if (arr[mid] > data) {
+                upperBound = mid - 1
+            }
+        }
+        return -1
+    }
+
+    function seqSearch(str, data) {
+        var arr = str.split(' ')
+        for (var i = 0; i < arr.length; i++) {
+            if (data == arr[i]) {
+                return i
+            }
+        }
+        return -1
+    }
+    readFile(path.join(__dirname, 'words.txt'), 'utf-8', function (err, data) {
+        if (err) return console.log('读取文件失败：' + err.message)
+        console.log('读取文件成功，内容是' + data)
+        var words = data
+        var word = 'guohua'
+        var start = new Date().getTime()
+        var position1 = seqSearch(words, word)
+        var stop = new Date().getTime()
+        var elapsed = stop - start
+        if (position1 >= 0) {
+            console.log( position1, elapsed )
+        }
+        var sort = words.sort(function() {return 1})
+        var position2 = binSearch(words, word)
+        var start = new Date().getTime()
+        var stop = new Date().getTime()
+        var elapsed = stop - start
+        if (position2 >= 0) {
+            console.log( position2, elapsed )
+        }
+    })
+</script>

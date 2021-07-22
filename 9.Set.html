@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function mySet() {
+        this.dataStore = []
+    }
+    mySet.prototype = {
+        constructor: 'mySet',
+        add: function(data) {
+            if(this.dataStore.indexOf(data)>-1) {
+                return false
+            } else {
+                this.dataStore.push(data)
+            }
+        },
+        remove: function(data) {
+            var index = this.dataStore.indexOf(data)
+            this.dataStore.splice(index, 1)
+        },
+        clear: function() {
+            this.dataStore = []
+        },
+        show: function() {
+            console.log(this.dataStore)
+        },
+        contains: function(data) {
+            if(this.dataStore.indexOf(data)>-1) {
+                return true
+            } else {
+                return false
+            }
+        }, 
+        union: function(set) {
+            console.log(Object.getPrototypeOf(set).constructor )
+            if(Object.getPrototypeOf(set).constructor == 'mySet') {
+                set.dataStore.forEach(item => {
+                    this.add(item)
+                });
+            } else {
+                return false
+            }
+        },
+        intersect: function(set) {
+            console.log(Object.getPrototypeOf(set).constructor )
+            if(Object.getPrototypeOf(set).constructor == 'mySet') {
+                var tempSet = new mySet()
+                for(let i= 0; i< set.dataStore.length; i++) {
+                    var item = set.dataStore[i]
+                    if(this.contains(item)) {
+                        tempSet.add(item)
+                    }
+                }
+            }
+            return tempSet
+        },
+        subSet: function(set) {
+            // console.log(Object.getPrototypeOf(set).constructor )
+            let result = true
+            if(Object.getPrototypeOf(set).constructor == 'mySet') {
+                if(set.dataStore.length < this.dataStore.length) {
+                    set.dataStore.forEach(item => {
+                        console.log(item)
+                        if(!this.contains(item)) {
+                            result = false
+                        }
+                    })
+                } else {
+                    result = false
+                }
+            }
+            return result
+        }
+    }
+    var eg = new mySet()
+    eg.add('KKKK')
+    eg.add('ttttt')
+    var othereg = new mySet()
+    othereg.add('other')
+    othereg.add('KKKK')
+    var subset = new mySet()
+    subset.add('KKKK')
+</script>
